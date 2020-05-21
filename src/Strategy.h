@@ -2,6 +2,15 @@
 #ifndef STRATEGY_H
 #define STRATEGY_H
 #include "Factory.h"
+#include <regex>
+#include <sstream>
+#include <algorithm>
+
+class Interface;
+class InterfaceFactory;
+class OperationFactory;
+class WindowsFactory;
+class Factory;
 
 class Operation
 {
@@ -11,6 +20,13 @@ public:
 	virtual ~Operation();
 
 	virtual void doOperation() = 0;
+
+protected:
+	Factory* fac;
+	shared_ptr<InterfaceFactory> faceFac;
+	shared_ptr<Interface> face;
+	shared_ptr<WindowsFactory> winFac;
+	shared_ptr<WindowsHelper> windowsHelper;
 };
 
 class MyContacts :public Operation
@@ -35,6 +51,10 @@ public:
 
 	virtual void reactToSelection(int key) = 0;
 
+protected:
+	Factory* fac;
+	shared_ptr<OperationFactory> operFac;
+	shared_ptr<Operation> oper;
 
 };
 

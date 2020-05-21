@@ -40,5 +40,21 @@ public:
 
 };
 
+class MyContactsInterface :public Interface
+{
+public:
+	void showTitle()override;
+
+	void showSelection()override;
+};
+
+class LookGroupInterface :public Interface
+{
+public:
+	void showTitle()override;
+
+	void showSelection()override;
+};
+
 
 #endif // !INTERFACE_H

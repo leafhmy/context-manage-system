@@ -12,7 +12,7 @@ Interface::~Interface()
 	delete fac;
 }
 
-
+//////////////////////////////////////////////////////////////////////
 
 void MainInterface::showTitle()
 {
@@ -28,3 +28,31 @@ void MainInterface::showSelection()
 	windowsHelper->print(20, 14, "管理我的联系人");
 	windowsHelper->print(20, 16, "退出系统");
 }
+
+/////////////////////////////////////////////////////
+
+void MyContactsInterface::showTitle()
+{
+	windowsHelper->print(17, 5, "我的联系人");
+	windowsHelper->print(12, 7, "我的分组：");
+}
+
+void MyContactsInterface::showSelection()
+{
+
+}
+
+//////////////////////////////////////////////////////
+
+void LookGroupInterface::showTitle()
+{
+
+}
+
+void LookGroupInterface::showSelection()
+{
+	windowsHelper->print(3, 25, "返回");
+}
+
+//////////////////////////////////////////////////
+

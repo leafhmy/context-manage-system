@@ -12,6 +12,8 @@ class WindowsHelper;
 
 class Interface;
 class MainInterface;
+class MyContactsInterface;
+class LookGroupInterface;
 
 class Operation;
 class MyContacts;
@@ -32,6 +34,8 @@ class MainInterfaceReaction;
 enum e_Interface
 {
 	e_MainInterface,
+	e_MyContactsInterface,
+	e_LookGroupInterface,
 };
 
 enum e_Operation

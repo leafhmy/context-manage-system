@@ -24,7 +24,9 @@ void Run::start()
 	mainInterface->show();
 	int key = 1;
 	key = mainInterfaceSelection();
-
+	shared_ptr<ContextFactory> ctxFac = fac->getContextFactory();
+	shared_ptr<Context> mainInterfaceReaction = ctxFac->getInstance_shared(e_MainInterfaceReaction);
+	mainInterfaceReaction->reactToSelection(key);
 	
 }
 

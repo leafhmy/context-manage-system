@@ -106,22 +106,22 @@ class DataReader : private DataHelper
 public:
 	map<string, map<string, string>> getAllContacts()
 	{
-		__getAllContacts();
+		return __getAllContacts();
 	}
 
 	vector<string> getGroups()
 	{
-		__getGroups();
+		return __getGroups();
 	}
 	
 	vector<map<string, string>> getContactsInGroup(string group)
 	{
-		__getContactsInGroup(group);
+		return __getContactsInGroup(group);
 	}
 
 	map<string, string> getContact(string group, string name)
 	{
-		__getContact(group, name);
+		return __getContact(group, name);
 	}
 
 private:

@@ -20,6 +20,12 @@ shared_ptr<Interface> InterfaceFactory::getInstance_shared(e_Interface e_face)
 	case e_MainInterface:
 		face = shared_ptr<Interface>(new MainInterface());
 		break;
+	case e_MyContactsInterface:
+		face = shared_ptr<MyContactsInterface>(new MyContactsInterface());
+		break;
+	case e_LookGroupInterface:
+		face = shared_ptr<LookGroupInterface>(new LookGroupInterface());
+		break;
 	default:
 		break;
 	}

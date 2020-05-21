@@ -75,7 +75,7 @@ void DataWriter::__editeInfo(string group, string identifiy, string attribute, s
 
 void DataWriter::__renameGroup(string name, string newName)
 {
-	ifstream fileContacts(contactsFile, ios::binary | ios::trunc | ios::in);
+	fstream fileContacts(contactsFile, ios::binary | ios::trunc | ios::in);
 	Json::Value contacts;
 	fileContacts >> contacts;
 
@@ -106,14 +106,14 @@ map<string, map<string, string>> DataReader::__getAllContacts()
 	// <group, <attribute, value>>
 	map<string, map<string, string>> allContacts;
 
-	ofstream fileContacts(contactsFile, ios::binary | ios::out);
+	ifstream fileContacts(contactsFile, ios::binary | ios::in);
 	Json::Value contacts;
-	fileContacts << contacts;
+	fileContacts >> contacts;
 	fileContacts.close();
 
-	ofstream readFileGroups(groupsFile, ios::binary | ios::out);
+	ifstream readFileGroups(groupsFile, ios::binary | ios::in);
 	Json::Value groups;
-	readFileGroups << groups;
+	readFileGroups >> groups;
 	readFileGroups.close();
 
 	for (auto group : groups)
@@ -141,9 +141,9 @@ map<string, map<string, string>> DataReader::__getAllContacts()
 vector<string> DataReader::__getGroups()
 {
 	vector<string> allGroups;
-	ofstream readFileGroups(groupsFile, ios::binary | ios::out);
+	ifstream readFileGroups(groupsFile, ios::binary | ios::in);
 	Json::Value groups;
-	readFileGroups << groups;
+	readFileGroups >> groups;
 	readFileGroups.close();
 
 	for (auto group : groups["groups"])
@@ -157,23 +157,23 @@ vector<string> DataReader::__getGroups()
 vector<map<string, string>> DataReader::__getContactsInGroup(string group)
 {
 	vector<map<string, string>> contactsInGroup;
-	ofstream fileContacts(contactsFile, ios::binary | ios::out);
+	ifstream fileContacts(contactsFile, ios::binary | ios::in);
 	Json::Value contacts;
-	fileContacts << contacts;
+	fileContacts >> contacts;
 	fileContacts.close();
 
 	contacts = contacts[GBToUTF8(group.c_str())];
 	for (auto contact : contacts)
 	{
 		map<string, string> contactInfo;
-		contactInfo["address"] = contact["address"].asCString();
-		contactInfo["group"] = contact["group"].asCString();
+		contactInfo["address"] = UTF8ToGB(contact["address"].asCString());
+		contactInfo["group"] = UTF8ToGB(contact["group"].asCString());
 		contactInfo["home_phone"] = contact["home_phone"].asCString();
 		contactInfo["id"] = contact["id"].asCString();
 		contactInfo["mail"] = contact["mail"].asCString();
 		contactInfo["mobile_phone"] = contact["mobile_phone"].asCString();
-		contactInfo["name"] = contact["name"].asCString();
-		contactInfo["sex"] = contact["sex"].asCString();
+		contactInfo["name"] = UTF8ToGB(contact["name"].asCString());
+		contactInfo["sex"] = UTF8ToGB(contact["sex"].asCString());
 		contactInfo["work_phone"] = contact["work_phone"].asCString();
 
 		contactsInGroup.push_back(contactInfo);

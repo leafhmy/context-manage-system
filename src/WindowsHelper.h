@@ -52,6 +52,16 @@ public:
 		__setCursorPosition(0, 0);
 	}
 
+	void clearLine(const int x, const int y, const int w)
+	{
+		__clearLine(x, y, w);
+	}
+
+	void  clearLine(const int x, const int y, const int w, std::string contant)
+	{
+		__clearLine(x, y, w, contant);
+	}
+
 private:
 	// 设置窗口大小、标题
 	void __setWindowsAttribute(const int cols, const int lines, std::string title)
@@ -77,6 +87,23 @@ private:
 	{
 		__setCursorPosition(x, y);
 		std::cout << contant;
+	}
+
+	void __clearLine(const int x, const int y, const int w)
+	{
+		__setCursorPosition(x, y);
+		for (int i = 0; i < w; i++)
+			cout << " ";
+		__setCursorPosition(x, y);
+	}
+
+	void __clearLine(const int x, const int y, const int w, std::string contant)
+	{
+		__setCursorPosition(x, y);
+		for (int i = 0; i < w; i++)
+			cout << " ";
+		__setCursorPosition(x, y);
+		cout << contant;
 	}
 
 	// 设置文本颜色
