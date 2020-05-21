@@ -19,6 +19,16 @@ class MyContacts;
 class Context;
 class MainInterfaceReaction;
 
+class DataHelper;
+class DataWriter;
+class DataReader;
+
+class Operation;
+class MyContacts;
+
+class Context;
+class MainInterfaceReaction;
+
 enum e_Interface
 {
 	e_MainInterface,
@@ -34,9 +44,15 @@ enum e_Context
 	e_MainInterfaceReaction,
 };
 
-enum e_DataHelper
-{
 
+
+class WindowsFactory
+{
+public:
+	shared_ptr<WindowsHelper> getInstance();
+
+private:
+	shared_ptr<WindowsHelper> helper;
 };
 
 
@@ -53,13 +69,26 @@ private:
 
 
 
-class WindowsFactory
+class OperationFactory
 {
 public:
-	shared_ptr<WindowsHelper> getInstance();
+	shared_ptr<Operation> getInstance_shared(e_Operation e_oper);
 
 private:
-	shared_ptr<WindowsHelper> helper;
+	shared_ptr<Operation> oper;
+
+};
+
+
+
+class ContextFactory
+{
+public:
+	shared_ptr<Context> getInstance_shared(e_Context e_ctx);
+
+private:
+	shared_ptr<Context> ctx;
+
 };
 
 
@@ -70,6 +99,14 @@ public:
 	shared_ptr<InterfaceFactory> getInterfaceFactory();
 
 	shared_ptr<WindowsFactory> getWindowsFactory();
+
+	shared_ptr<ContextFactory> getContextFactory();
+
+	shared_ptr<OperationFactory> getOperationFactory();
+
+	shared_ptr<DataReader> getDataReader_shared();
+
+	shared_ptr<DataWriter> getDataWriter_shared();
 
 };
 

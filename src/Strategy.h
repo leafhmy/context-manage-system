@@ -1,6 +1,7 @@
 #pragma once
 #ifndef STRATEGY_H
 #define STRATEGY_H
+#include "Factory.h"
 
 class Operation
 {
@@ -15,8 +16,14 @@ public:
 class MyContacts :public Operation
 {
 public:
+	void doOperation()override;
 
 };
+
+
+
+/////////////////////////////////////////////////////
+
 
 
 class Context
