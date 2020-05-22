@@ -26,11 +26,37 @@ shared_ptr<Interface> InterfaceFactory::getInstance_shared(e_Interface e_face)
 	case e_LookGroupInterface:
 		face = shared_ptr<LookGroupInterface>(new LookGroupInterface());
 		break;
+	case e_FindContactsInterface:
+		face = shared_ptr<FindContactsInterface>(new FindContactsInterface());
+		break;
 	default:
 		break;
 	}
 
 	return face;
+}
+
+
+
+/////////////////////////////////////////////////////////////////////////////////
+
+
+
+shared_ptr<GetSelection> GetSelectionFactory::getInstance_shared(e_GetSelection selec)
+{
+	switch (selec)
+	{
+	case e_GetMyContactsInterfaceSelection:
+		getSelection = shared_ptr<GetSelection>(new GetMyContactsInterfaceSelection());
+		break;
+	case e_GetMainInterfaceSelection:
+		getSelection = shared_ptr<GetSelection>(new GetMainInterfaceSelection());
+		break;
+	default:
+		break;
+	}
+
+	return getSelection;
 }
 
 
@@ -46,6 +72,8 @@ shared_ptr<Operation> OperationFactory::getInstance_shared(e_Operation e_oper)
 	case e_MyContacts:
 		oper = shared_ptr<MyContacts>(new MyContacts());
 		break;
+	case e_FindContacts:
+		oper = shared_ptr<FindContacts>(new FindContacts());
 	default:
 		break;
 	}
@@ -65,6 +93,9 @@ shared_ptr<Context> ContextFactory::getInstance_shared(e_Context e_ctx)
 	{
 	case e_MainInterfaceReaction:
 		ctx = shared_ptr<MainInterfaceReaction>(new MainInterfaceReaction());
+		break;
+	case e_MyContactsInterfaceReaction:
+		ctx = shared_ptr<MyContactsInterfaceReaction>(new MyContactsInterfaceReaction());
 		break;
 	default:
 		break;
@@ -86,6 +117,11 @@ shared_ptr<InterfaceFactory> Factory::getInterfaceFactory()
 shared_ptr<WindowsFactory> Factory::getWindowsFactory()
 {
 	return shared_ptr<WindowsFactory>(new WindowsFactory());
+}
+
+shared_ptr<GetSelectionFactory> Factory::getSelectionFactory()
+{
+	return shared_ptr<GetSelectionFactory>(new GetSelectionFactory());
 }
 
 shared_ptr<ContextFactory> Factory::getContextFactory()

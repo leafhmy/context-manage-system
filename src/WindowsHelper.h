@@ -57,6 +57,11 @@ public:
 		__clearLine(x, y, w);
 	}
 
+	void clearLine(const int x, const int y, const int w, const int h)
+	{
+		__clearLine(x, y, w, h);
+	}
+
 	void  clearLine(const int x, const int y, const int w, std::string contant)
 	{
 		__clearLine(x, y, w, contant);
@@ -94,6 +99,20 @@ private:
 		__setCursorPosition(x, y);
 		for (int i = 0; i < w; i++)
 			cout << " ";
+		__setCursorPosition(x, y);
+	}
+
+	void __clearLine(const int x, const int y, const int w, const int h)
+	{
+		__setCursorPosition(x, y);
+		for (int i = 0; i < h; i++)
+		{
+			for (int j = 0; i < w; j++)
+			{
+				cout << " ";
+			}
+			cout << endl;
+		}
 		__setCursorPosition(x, y);
 	}
 

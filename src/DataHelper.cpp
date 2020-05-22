@@ -101,37 +101,38 @@ void DataWriter::__renameGroup(string name, string newName)
 
 
 
-map<string, map<string, string>> DataReader::__getAllContacts()
+vector<map<string, string>> DataReader::__getAllContacts()
 {
-	// <group, <attribute, value>>
-	map<string, map<string, string>> allContacts;
-
+	// <attribute, value>
+	vector<map<string, string>> allContacts;
 	ifstream fileContacts(contactsFile, ios::binary | ios::in);
 	Json::Value contacts;
 	fileContacts >> contacts;
 	fileContacts.close();
+
 
 	ifstream readFileGroups(groupsFile, ios::binary | ios::in);
 	Json::Value groups;
 	readFileGroups >> groups;
 	readFileGroups.close();
 
-	for (auto group : groups)
+	for (int i = 0; i < groups.size(); i++)
 	{
-		for (auto contact : contacts)
+		Json::Value contactsInGroup = contacts[(groups["groups"][i].asCString())];
+		for (auto contact : contactsInGroup)
 		{
 			map<string, string> contactInfo;
-			contactInfo["address"] = contact["address"].asCString();
-			contactInfo["group"] = contact["group"].asCString();
+			contactInfo["address"] = UTF8ToGB(contact["address"].asCString());
+			contactInfo["group"] = UTF8ToGB(contact["group"].asCString());
 			contactInfo["home_phone"] = contact["home_phone"].asCString();
 			contactInfo["id"] = contact["id"].asCString();
 			contactInfo["mail"] = contact["mail"].asCString();
 			contactInfo["mobile_phone"] = contact["mobile_phone"].asCString();
-			contactInfo["name"] = contact["name"].asCString();
-			contactInfo["sex"] = contact["sex"].asCString();
+			contactInfo["name"] = UTF8ToGB(contact["name"].asCString());
+			contactInfo["sex"] = UTF8ToGB(contact["sex"].asCString());
 			contactInfo["work_phone"] = contact["work_phone"].asCString();
 
-			allContacts[UTF8ToGB(group.asCString())] = contactInfo;
+			allContacts.push_back(contactInfo);
 		}
 	}
 

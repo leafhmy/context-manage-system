@@ -104,7 +104,7 @@ private:
 class DataReader : private DataHelper
 {
 public:
-	map<string, map<string, string>> getAllContacts()
+	vector<map<string, string>> getAllContacts()
 	{
 		return __getAllContacts();
 	}
@@ -125,7 +125,7 @@ public:
 	}
 
 private:
-	map<string, map<string, string>> __getAllContacts();
+	vector<map<string, string>> __getAllContacts();
 
 	vector<string> __getGroups();
 

@@ -14,38 +14,55 @@ class Interface;
 class MainInterface;
 class MyContactsInterface;
 class LookGroupInterface;
+class FindContactsInterface;
 
 class Operation;
 class MyContacts;
+class FindContacts;
 
 class Context;
 class MainInterfaceReaction;
+class MyContactsInterfaceReaction;
 
 class DataHelper;
 class DataWriter;
 class DataReader;
 
+class GetSelection;
+class GetMyContactsInterfaceSelection;
+class GetMainInterfaceSelection;
+
 class Operation;
 class MyContacts;
 
 class Context;
 class MainInterfaceReaction;
+class MyContactsInterfaceReaction;
 
 enum e_Interface
 {
 	e_MainInterface,
 	e_MyContactsInterface,
 	e_LookGroupInterface,
+	e_FindContactsInterface,
+};
+
+enum e_GetSelection
+{
+	e_GetMyContactsInterfaceSelection,
+	e_GetMainInterfaceSelection,
 };
 
 enum e_Operation
 {
 	e_MyContacts,
+	e_FindContacts,
 };
 
 enum e_Context
 {
 	e_MainInterfaceReaction,
+	e_MyContactsInterfaceReaction,
 };
 
 
@@ -71,6 +88,15 @@ private:
 
 };
 
+
+class GetSelectionFactory
+{
+public:
+	shared_ptr<GetSelection> getInstance_shared(e_GetSelection selec);
+
+private:
+	shared_ptr<GetSelection> getSelection;
+};
 
 
 class OperationFactory
@@ -103,6 +129,8 @@ public:
 	shared_ptr<InterfaceFactory> getInterfaceFactory();
 
 	shared_ptr<WindowsFactory> getWindowsFactory();
+
+	shared_ptr<GetSelectionFactory> getSelectionFactory();
 
 	shared_ptr<ContextFactory> getContextFactory();
 

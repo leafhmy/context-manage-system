@@ -56,3 +56,13 @@ void LookGroupInterface::showSelection()
 
 //////////////////////////////////////////////////
 
+void FindContactsInterface::showTitle()
+{
+	
+}
+
+void FindContactsInterface::showSelection()
+{
+
+}
+

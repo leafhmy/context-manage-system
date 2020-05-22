@@ -5,12 +5,43 @@
 #include <regex>
 #include <sstream>
 #include <algorithm>
+#include <conio.h>
 
 class Interface;
 class InterfaceFactory;
 class OperationFactory;
 class WindowsFactory;
 class Factory;
+
+
+
+class GetSelection
+{
+public:
+	GetSelection();
+
+	virtual ~GetSelection();
+
+	virtual int Select() = 0;
+
+protected:
+	Factory* fac;
+	shared_ptr<WindowsFactory> winFac;
+	shared_ptr<WindowsHelper> windowsHelper;
+};
+
+class GetMyContactsInterfaceSelection :public GetSelection
+{
+public:
+	int Select()override;
+};
+
+class GetMainInterfaceSelection :public GetSelection
+{
+	int Select()override;
+};
+
+////////////////////////////////////////
 
 class Operation
 {
@@ -36,6 +67,12 @@ public:
 
 };
 
+class FindContacts :public Operation
+{
+public:
+	void doOperation()override;
+
+};
 
 
 /////////////////////////////////////////////////////
@@ -58,11 +95,18 @@ protected:
 
 };
 
+ 
 class MainInterfaceReaction :public Context
 {
 public:
 	void reactToSelection(int key)override;
 
+};
+
+class MyContactsInterfaceReaction :public Context 
+{
+public:
+	void reactToSelection(int key)override;
 };
 
 

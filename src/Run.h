@@ -22,8 +22,6 @@ private:
 	shared_ptr<WindowsFactory> windowsFac;
 	shared_ptr<WindowsHelper> windowsHelper;
 	shared_ptr<InterfaceFactory> interfaceFactory;
-
-	int mainInterfaceSelection();
 };
 
 

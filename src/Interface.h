@@ -56,5 +56,13 @@ public:
 	void showSelection()override;
 };
 
+class FindContactsInterface :public Interface
+{
+public:
+	void showTitle()override;
+
+	void showSelection()override;
+};
+
 
 #endif // !INTERFACE_H
