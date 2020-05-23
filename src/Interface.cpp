@@ -63,6 +63,25 @@ void FindContactsInterface::showTitle()
 
 void FindContactsInterface::showSelection()
 {
+	windowsHelper->print(2, 4, "返回");
+}
 
+
+///////////////////////////////////////////////////
+
+void ManageContactsInterface::showTitle()
+{
+	windowsHelper->print(35, 2, "所有联系人");
+}
+
+void ManageContactsInterface::showSelection()
+{
+	windowsHelper->print(2, 6, "添加联系人");
+	windowsHelper->print(2, 8, "删除联系人");
+	windowsHelper->print(2, 10, "移动联系人");
+	windowsHelper->print(2, 12, "编辑信息");
+	windowsHelper->print(2, 14, "添加分组");
+	windowsHelper->print(2, 16, "删除分组");
+	windowsHelper->print(2, 18, "返回");
 }
 

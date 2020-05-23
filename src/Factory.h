@@ -15,10 +15,13 @@ class MainInterface;
 class MyContactsInterface;
 class LookGroupInterface;
 class FindContactsInterface;
+class ManageContactsInterface;
 
 class Operation;
 class MyContacts;
 class FindContacts;
+class ManageContacts;
+class EditContactsInfo;
 
 class Context;
 class MainInterfaceReaction;
@@ -31,13 +34,20 @@ class DataReader;
 class GetSelection;
 class GetMyContactsInterfaceSelection;
 class GetMainInterfaceSelection;
+class GetFindContactsInterfaceSelection;
+class GetManageContactsInterfaceSelection;
 
 class Operation;
 class MyContacts;
+class AddContacts;
+class RemoveContacts;
+class MoveContacts;
 
 class Context;
 class MainInterfaceReaction;
 class MyContactsInterfaceReaction;
+class FindContactsInterfaceReaction;
+class ManageContactsInterfaceReaction;
 
 enum e_Interface
 {
@@ -45,24 +55,34 @@ enum e_Interface
 	e_MyContactsInterface,
 	e_LookGroupInterface,
 	e_FindContactsInterface,
+	e_ManageContactsInterface,
 };
 
 enum e_GetSelection
 {
 	e_GetMyContactsInterfaceSelection,
 	e_GetMainInterfaceSelection,
+	e_GetFindContactsInterfaceSelection,
+	e_GetManageContactsInterfaceSelection,
 };
 
 enum e_Operation
 {
 	e_MyContacts,
 	e_FindContacts,
+	e_ManageContacts,
+	e_AddContacts,
+	e_RemoveContacts,
+	e_MoveContacts,
+	e_EditContactsInfo,
 };
 
 enum e_Context
 {
 	e_MainInterfaceReaction,
 	e_MyContactsInterfaceReaction,
+	e_FindContactsInterfaceReaction,
+	e_ManageContactsInterfaceReaction,
 };
 
 

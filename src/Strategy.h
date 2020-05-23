@@ -38,6 +38,19 @@ public:
 
 class GetMainInterfaceSelection :public GetSelection
 {
+public:
+	int Select()override;
+};
+
+class GetFindContactsInterfaceSelection :public GetSelection
+{
+public:
+	int Select()override;
+};
+
+class GetManageContactsInterfaceSelection :public GetSelection
+{
+public:
 	int Select()override;
 };
 
@@ -58,6 +71,23 @@ protected:
 	shared_ptr<Interface> face;
 	shared_ptr<WindowsFactory> winFac;
 	shared_ptr<WindowsHelper> windowsHelper;
+
+protected:
+	void printAllContacts();
+	void upDateMngCtxInterface();
+	string GBToUTF8(const char* gb2312)
+	{
+		int len = MultiByteToWideChar(CP_ACP, 0, gb2312, -1, NULL, 0);
+		wchar_t* wstr = new wchar_t[len + 1];
+		memset(wstr, 0, len + 1);
+		MultiByteToWideChar(CP_ACP, 0, gb2312, -1, wstr, len);
+		len = WideCharToMultiByte(CP_UTF8, 0, wstr, -1, NULL, 0, NULL, NULL);
+		char* str = new char[len + 1];
+		memset(str, 0, len + 1);
+		WideCharToMultiByte(CP_UTF8, 0, wstr, -1, str, len, NULL, NULL);
+		if (wstr) delete[] wstr;
+		return str;
+	}
 };
 
 class MyContacts :public Operation
@@ -72,6 +102,36 @@ class FindContacts :public Operation
 public:
 	void doOperation()override;
 
+};
+
+class ManageContacts :public Operation
+{
+public:
+	void doOperation()override;
+};
+
+class AddContacts :public Operation
+{
+public:
+	void doOperation()override;
+};
+
+class RemoveContacts :public Operation
+{
+public:
+	void doOperation()override;
+};
+
+class MoveContacts :public Operation
+{
+public:
+	void doOperation()override;
+};
+
+class EditContactsInfo :public Operation
+{
+public:
+	void doOperation()override;
 };
 
 
@@ -109,6 +169,19 @@ public:
 	void reactToSelection(int key)override;
 };
 
+class FindContactsInterfaceReaction :public Context
+{
+public:
+	void reactToSelection(int key)override;
+};
+
+class ManageContactsInterfaceReaction :public Context
+{
+public:
+	void reactToSelection(int key)override;
+};
 
 
-#endif // !STRATEGY-H
+
+
+#endif // !STRATEGY_H

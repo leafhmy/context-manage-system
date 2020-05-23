@@ -18,7 +18,7 @@ shared_ptr<Interface> InterfaceFactory::getInstance_shared(e_Interface e_face)
 	switch (e_face)
 	{
 	case e_MainInterface:
-		face = shared_ptr<Interface>(new MainInterface());
+		face = shared_ptr<MainInterface>(new MainInterface());
 		break;
 	case e_MyContactsInterface:
 		face = shared_ptr<MyContactsInterface>(new MyContactsInterface());
@@ -28,6 +28,9 @@ shared_ptr<Interface> InterfaceFactory::getInstance_shared(e_Interface e_face)
 		break;
 	case e_FindContactsInterface:
 		face = shared_ptr<FindContactsInterface>(new FindContactsInterface());
+		break;
+	case e_ManageContactsInterface:
+		face = shared_ptr<ManageContactsInterface>(new ManageContactsInterface());
 		break;
 	default:
 		break;
@@ -47,10 +50,16 @@ shared_ptr<GetSelection> GetSelectionFactory::getInstance_shared(e_GetSelection 
 	switch (selec)
 	{
 	case e_GetMyContactsInterfaceSelection:
-		getSelection = shared_ptr<GetSelection>(new GetMyContactsInterfaceSelection());
+		getSelection = shared_ptr<GetMyContactsInterfaceSelection>(new GetMyContactsInterfaceSelection());
 		break;
 	case e_GetMainInterfaceSelection:
-		getSelection = shared_ptr<GetSelection>(new GetMainInterfaceSelection());
+		getSelection = shared_ptr<GetMainInterfaceSelection>(new GetMainInterfaceSelection());
+		break;
+	case e_GetFindContactsInterfaceSelection:
+		getSelection = shared_ptr<GetFindContactsInterfaceSelection>(new GetFindContactsInterfaceSelection());
+		break;
+	case e_GetManageContactsInterfaceSelection:
+		getSelection = shared_ptr<GetManageContactsInterfaceSelection>(new GetManageContactsInterfaceSelection());
 		break;
 	default:
 		break;
@@ -74,6 +83,22 @@ shared_ptr<Operation> OperationFactory::getInstance_shared(e_Operation e_oper)
 		break;
 	case e_FindContacts:
 		oper = shared_ptr<FindContacts>(new FindContacts());
+		break;
+	case e_ManageContacts:
+		oper = shared_ptr<ManageContacts>(new ManageContacts());
+		break;
+	case e_AddContacts:
+		oper = shared_ptr<AddContacts>(new AddContacts());
+		break;
+	case e_RemoveContacts:
+		oper = shared_ptr<RemoveContacts>(new RemoveContacts());
+		break;
+	case e_MoveContacts:
+		oper = shared_ptr<MoveContacts>(new MoveContacts());
+		break;
+	case e_EditContactsInfo:
+		oper = shared_ptr<EditContactsInfo>(new EditContactsInfo());
+		break;
 	default:
 		break;
 	}
@@ -96,6 +121,12 @@ shared_ptr<Context> ContextFactory::getInstance_shared(e_Context e_ctx)
 		break;
 	case e_MyContactsInterfaceReaction:
 		ctx = shared_ptr<MyContactsInterfaceReaction>(new MyContactsInterfaceReaction());
+		break;
+	case e_FindContactsInterfaceReaction:
+		ctx = shared_ptr<FindContactsInterfaceReaction>(new FindContactsInterfaceReaction());
+		break;
+	case e_ManageContactsInterfaceReaction:
+		ctx = shared_ptr<ManageContactsInterfaceReaction>(new ManageContactsInterfaceReaction());
 		break;
 	default:
 		break;

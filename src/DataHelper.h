@@ -68,6 +68,21 @@ public:
 		__addContact(contactInfo, group);
 	}
 
+	void removeContact(string group, string id)
+	{
+		__removeContact(group, id);
+	}
+
+	void moveContact(string moveId, string inGroup, string destinGroup)
+	{
+		__moveContact(moveId, inGroup, destinGroup);
+	}
+
+	void changeContactsInfo(string id, string inGroup, string toChange, string changeInfo)
+	{
+		__changeContactsInfo(id, inGroup, toChange, changeInfo);
+	}
+
 	void addGroup(string group)
 	{
 		__addGroup(group);
@@ -85,6 +100,12 @@ public:
 
 private:
 	void __addContact(map<string, string> contactInfo, string group);
+
+	void __removeContact(string group, string id);
+
+	void __moveContact(string removeId, string inGroup, string destinGroup);
+
+	void __changeContactsInfo(string id, string inGroup, string toChange, string changeInfo);
 
 	void __addGroup(string group);
 
@@ -119,9 +140,9 @@ public:
 		return __getContactsInGroup(group);
 	}
 
-	map<string, string> getContact(string group, string name)
+	map<string, string> getContact(string group, string id)
 	{
-		return __getContact(group, name);
+		return __getContact(group, id);
 	}
 
 private:
@@ -131,7 +152,7 @@ private:
 
 	vector<map<string, string>> __getContactsInGroup(string group);
 
-	map<string, string> __getContact(string group, string name);
+	map<string, string> __getContact(string group, string id);
 
 };
 
