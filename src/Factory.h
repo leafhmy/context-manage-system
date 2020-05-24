@@ -16,12 +16,14 @@ class MyContactsInterface;
 class LookGroupInterface;
 class FindContactsInterface;
 class ManageContactsInterface;
+class ExitSystemInterface;
 
 class Operation;
 class MyContacts;
 class FindContacts;
 class ManageContacts;
 class EditContactsInfo;
+class ExitSystem;
 
 class Context;
 class MainInterfaceReaction;
@@ -42,6 +44,9 @@ class MyContacts;
 class AddContacts;
 class RemoveContacts;
 class MoveContacts;
+class AddGroup;
+class RemoveGroup;
+class GoBack;
 
 class Context;
 class MainInterfaceReaction;
@@ -56,6 +61,7 @@ enum e_Interface
 	e_LookGroupInterface,
 	e_FindContactsInterface,
 	e_ManageContactsInterface,
+	e_ExitSystemInterface,
 };
 
 enum e_GetSelection
@@ -75,6 +81,10 @@ enum e_Operation
 	e_RemoveContacts,
 	e_MoveContacts,
 	e_EditContactsInfo,
+	e_AddGroup,
+	e_RemoveGroup,
+	e_GoBack,
+	e_ExitSystem,
 };
 
 enum e_Context

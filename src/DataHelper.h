@@ -88,6 +88,11 @@ public:
 		__addGroup(group);
 	}
 
+	void removeGroup(string group)
+	{
+		__removeGroup(group);
+	}
+
 	void editeInfo(string group, string identifiy, string attribute, string newInfo)
 	{
 		__editeInfo(group, identifiy, attribute, newInfo);
@@ -108,6 +113,8 @@ private:
 	void __changeContactsInfo(string id, string inGroup, string toChange, string changeInfo);
 
 	void __addGroup(string group);
+
+	void __removeGroup(string group);
 
 	void __editeInfo(string group, string identifiy,string attribute, string newInfo);
 

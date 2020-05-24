@@ -134,6 +134,30 @@ public:
 	void doOperation()override;
 };
 
+class AddGroup : public Operation
+{
+public:
+	void doOperation()override;
+};
+
+class RemoveGroup :public Operation
+{
+public:
+	void doOperation()override;
+};
+
+class GoBack :public Operation
+{
+public:
+	void doOperation()override;
+};
+
+class ExitSystem :public Operation
+{
+public:
+	void doOperation()override;
+};
+
 
 /////////////////////////////////////////////////////
 

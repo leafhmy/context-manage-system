@@ -7,12 +7,17 @@ void DataWriter::__save(Json::Value value)
 	fileContacts.close();
 }
 
+
+
 void DataWriter::__save(string group)
 {
+	// 用于添加分组
 	ifstream readFileGroups(groupsFile, ios::binary | ios::in);
 	Json::Value groups;
 	readFileGroups >> groups;
-	groups["groups"].append(group);
+	
+	//groups["groups"].append(GBToUTF8(group.c_str()));
+	groups["groups"].append(GBToUTF8(group.c_str()));
 	readFileGroups.close();
 
 	ofstream writeFileGroups(groupsFile, ios::binary | ios::trunc | ios::out);
@@ -52,18 +57,20 @@ void DataWriter::__removeContact(string group, string id)
 	ifstream fileContacts(contactsFile, ios::binary | ios::in);
 	Json::Value contacts;
 	fileContacts >> contacts;
-	
-	Json::Value newGroup = Json::arrayValue;
 
+	int index = 0;
 	for (auto contact : contacts[GBToUTF8(group.c_str())])
 	{
-		if (contact[GBToUTF8("id")] != id)
+		if (UTF8ToGB(contact["id"].asCString()).c_str() == id)
 		{
-			newGroup.append(contact);
+			break;
 		}
+		index++;
 	}
 
-	contacts[GBToUTF8(group.c_str())] = newGroup;
+	Json::Value deleted;
+	contacts[GBToUTF8(group.c_str())].removeIndex(index, &deleted);
+	
 	fileContacts.close();
 	__save(contacts);
 }
@@ -74,8 +81,9 @@ void DataWriter::__moveContact(string moveId, string inGroup, string destinGroup
 	DataReader reader;
 	contact = reader.getContact(inGroup, moveId);
 	__addContact(contact, destinGroup);
-	__removeContact(moveId, inGroup);
+	__removeContact(inGroup, moveId);
 }
+
 
 void DataWriter::__changeContactsInfo(string id, string inGroup, string toChange, string changeInfo)
 {
@@ -83,8 +91,13 @@ void DataWriter::__changeContactsInfo(string id, string inGroup, string toChange
 	DataReader reader;
 	contact = reader.getContact(inGroup, id);
 	contact[toChange] = changeInfo;
+	// 如果改变分组信息，需要添加到目标分组
+	if (toChange == "group")
+		__addContact(contact, changeInfo);
+	else
+		__addContact(contact, inGroup);
 	__removeContact(inGroup, id);
-	__addContact(contact, inGroup);
+
 }
 
 void DataWriter::__addGroup(string group)
@@ -96,7 +109,47 @@ void DataWriter::__addGroup(string group)
 	Json::Value newGroup = Json::arrayValue;
 	contacts[GBToUTF8(group.c_str())] = newGroup;
 	fileContacts.close();
+
 	__save(group);
+	__save(contacts);
+}
+
+
+void DataWriter::__removeGroup(string groupName)
+{
+	ifstream readFileGroups(groupsFile, ios::binary | ios::in);
+	Json::Value groups;
+	readFileGroups >> groups;
+
+	ifstream fileContacts(contactsFile, ios::binary | ios::in);
+	Json::Value contacts;
+	fileContacts >> contacts;
+	
+	int index = 0;
+	for (auto group : groups["groups"])
+	{
+		if (UTF8ToGB(group.asCString()).c_str() == groupName)
+		{
+			//newGroup.append(GBToUTF8(group.asCString()));
+			break;
+		}
+		index++;
+	}
+	Json::Value deleted;
+	groups["groups"].removeIndex(index, &deleted);
+
+	ofstream writeFileGroups(groupsFile, ios::binary | ios::trunc | ios::out);
+	writeFileGroups << groups;
+	writeFileGroups.close();
+
+	// 删除联系人文件下的该组
+	contacts.removeMember(GBToUTF8(groupName.c_str()));
+
+	readFileGroups.close();
+	writeFileGroups.close();
+	fileContacts.close();
+	__save(contacts);
+
 }
 
 void DataWriter::__editeInfo(string group, string identifiy, string attribute, string newInfo)
@@ -145,7 +198,6 @@ void DataWriter::__renameGroup(string name, string newName)
 //////////////////////////////////////////////////////////////////////
 
 
-
 vector<map<string, string>> DataReader::__getAllContacts()
 {
 	// <attribute, value>
@@ -155,13 +207,12 @@ vector<map<string, string>> DataReader::__getAllContacts()
 	fileContacts >> contacts;
 	fileContacts.close();
 
-
 	ifstream readFileGroups(groupsFile, ios::binary | ios::in);
 	Json::Value groups;
 	readFileGroups >> groups;
 	readFileGroups.close();
 
-	for (int i = 0; i < groups.size(); i++)
+	for (int i = 0; i < groups["groups"].size(); i++)
 	{
 		Json::Value contactsInGroup = contacts[(groups["groups"][i].asCString())];
 		for (auto contact : contactsInGroup)

@@ -376,18 +376,18 @@ void MyContacts::doOperation()
 	// windowsHelper->print(12, 7, "我的分组：");
 	// 打印所有分组
 	vector<string> allGroups = reader->getGroups();
-	int pos = 10;
+	int yPos1 = 10;
+	int xPos1 = 17;
 	for (auto groupName : allGroups)
 	{
-		windowsHelper->setCursorPosition(17, pos);
-		cout << groupName;
+		windowsHelper->print(xPos1, yPos1, groupName);
+		yPos1 += 2;
 	}
 
 	windowsHelper->setCursorPosition(3, 30);
 	windowsHelper->print(3, 25, "请输入组名以查看：");
 	string groupName = "默认分组";
-	// TODO 处理键入非数字的字符出现bug
-	// 改为输入字符串
+
 	while (true)
 	{
 		//cin >> groupName; 
@@ -404,7 +404,7 @@ void MyContacts::doOperation()
 	system("cls");
 	// windowsHelper->setWindowsAttribute(50, 40, "test");
 	windowsHelper->print(17, 5, groupName);
-	// TODO 打印该组下的所有联系人的姓名和电话号码（手机号，家庭电话号，办公电话号码）
+	// 打印该组下的所有联系人的姓名和电话号码（手机号，家庭电话号，办公电话号码）
 	vector<map<string, string>> contactsInGroup = reader->getContactsInGroup(groupName);
 	windowsHelper->print(8, 8, "姓名");
 	windowsHelper->print(16, 8, "手机号");
@@ -481,8 +481,7 @@ void FindContacts::doOperation()
 
 	system("cls");
 	// 改变控制台宽度
-	if(foundContacts.size()!=0)
-		windowsHelper->setWindowsAttribute(80, 30, "通信录管理系统");
+	windowsHelper->setWindowsAttribute(80, 30, "通信录管理系统");
 
 	//windowsHelper->print(2, 2, "请输入联系人信息：");
 	windowsHelper->setCursorPosition(2, 2);
@@ -864,8 +863,14 @@ void MoveContacts::doOperation()
 	// 获取目标分组
 	while (true)
 	{
-		windowsHelper->clearLine(2, 4, 85, "请输入要移动到的分组：:");
+		windowsHelper->clearLine(2, 4, 85, "请输入要移动到的分组：");
 		getline(cin, destinGroup); cin.clear();
+		if (destinGroup == inGroup)
+		{
+			windowsHelper->clearLine(2, 4, 85, "联系人已经在该组！请重新输入，");
+			system("pause");
+			continue;
+		}
 		bool exist = false;
 		// 确认目标分组是否存在
 		for (auto group : allGroups)
@@ -894,7 +899,7 @@ void MoveContacts::doOperation()
 	upDateMngCtxInterface();
 }
 
-// TODO 只有一个分组无法移动，移动自身到所在分组造成重复
+
 void EditContactsInfo::doOperation()
 {
 	shared_ptr<DataReader> reader = fac->getDataReader_shared();
@@ -987,6 +992,12 @@ void EditContactsInfo::doOperation()
 				{
 					ok = false;
 					windowsHelper->clearLine(2, 4, 85, "不存在该分组！请重新输入，");
+					system("pause");
+				}
+				if (changeInfo == inGroup)
+				{
+					ok = false;
+					windowsHelper->clearLine(2, 4, 85, "联系人已经在该组！请重新输入，");
 					system("pause");
 				}
 				if (ok)
@@ -1177,7 +1188,7 @@ void EditContactsInfo::doOperation()
 	}
 
 	shared_ptr<DataWriter> writer = fac->getDataWriter_shared();
-	// TODO toChange 需要传入键值
+	
 	writer->changeContactsInfo(id, inGroup, attrToKey[toChange], changeInfo);
 	windowsHelper->clearLine(2, 4, 85, "修改成功！");
 	system("pause");
@@ -1185,6 +1196,93 @@ void EditContactsInfo::doOperation()
 	upDateMngCtxInterface();
 
 }
+
+
+void AddGroup::doOperation()
+{
+	shared_ptr<DataReader> reader = fac->getDataReader_shared();
+	// 获取分组信息
+	vector<string> allGroups = reader->getGroups();
+
+	string group;
+	while (true)
+	{
+		windowsHelper->clearLine(2, 4, 85, "请输入组名：");
+		getline(cin, group); cin.clear();
+		bool ok = true;
+		vector<string>::iterator found = find(allGroups.begin(), allGroups.end(), group);
+		if (found != allGroups.end())
+		{
+			ok = false;
+			windowsHelper->clearLine(2, 4, 85, "组名存在！请重新输入，");
+			system("pause");
+		}
+		if (ok)
+			break;
+	}
+
+	shared_ptr<DataWriter> writer = fac->getDataWriter_shared();
+	writer->addGroup(group);
+	upDateMngCtxInterface();
+}
+
+
+void RemoveGroup::doOperation()
+{
+	shared_ptr<DataReader> reader = fac->getDataReader_shared();
+	// 获取分组信息
+	vector<string> allGroups = reader->getGroups();
+
+	string group;
+	while (true)
+	{
+		windowsHelper->clearLine(2, 4, 85, "请输入要删除组名：");
+		getline(cin, group); cin.clear();
+		bool ok = true;
+		vector<string>::iterator found = find(allGroups.begin(), allGroups.end(), group);
+		if (found == allGroups.end())
+		{
+			ok = false;
+			windowsHelper->clearLine(2, 4, 85, "组名不存在！请重新输入，");
+			system("pause");
+		}
+		if (ok)
+			break;
+	}
+
+	shared_ptr<DataWriter> writer = fac->getDataWriter_shared();
+	writer->removeGroup(group);
+	upDateMngCtxInterface();
+}
+
+
+void GoBack::doOperation()
+{
+	windowsHelper->setColor(3);
+	system("cls");
+	windowsHelper->setWindowsAttribute(50, 30, "通信录管理系统");
+	shared_ptr<InterfaceFactory> faceFac = fac->getInterfaceFactory();
+	shared_ptr<Interface> mainFace = faceFac->getInstance_shared(e_MainInterface);
+	mainFace->show();
+	shared_ptr<GetSelectionFactory> getSelecFac = fac->getSelectionFactory();
+	shared_ptr<GetSelection> mainFaceSelec = getSelecFac->getInstance_shared(e_GetMainInterfaceSelection);
+	int key = mainFaceSelec->Select();
+	shared_ptr<ContextFactory> ctxFac = fac->getContextFactory();
+	shared_ptr<Context> mainFaceReact = ctxFac->getInstance_shared(e_MainInterfaceReaction);
+	mainFaceReact->reactToSelection(key);
+}
+
+
+void ExitSystem::doOperation()
+{
+	windowsHelper->setColor(3);
+	system("cls");
+	shared_ptr<Interface> exitFace = faceFac->getInstance_shared(e_ExitSystemInterface);
+	exitFace->show();
+	windowsHelper->setCursorPosition(15, 7);
+	system("pause");
+}
+
 
 
 ////////////////////////////////////////////////////////////
@@ -1221,6 +1319,11 @@ void MainInterfaceReaction::reactToSelection(int key)
 		oper = operFac->getInstance_shared(e_ManageContacts);
 		oper->doOperation();
 		break;
+	// 退出系统
+	case 4:
+		oper = operFac->getInstance_shared(e_ExitSystem);
+		oper->doOperation();
+		break;
 	default:
 		break;
 	}
@@ -1232,18 +1335,9 @@ void MyContactsInterfaceReaction::reactToSelection(int key)
 	{
 	// 返回主页面
 	case 1: 
-	{
-		shared_ptr<InterfaceFactory> faceFac = fac->getInterfaceFactory();
-		shared_ptr<Interface> mainFace = faceFac->getInstance_shared(e_MainInterface);
-		mainFace->show();
-		shared_ptr<GetSelectionFactory> getSelecFac = fac->getSelectionFactory();
-		shared_ptr<GetSelection> mainFaceSelec = getSelecFac->getInstance_shared(e_GetMainInterfaceSelection);
-		int key = mainFaceSelec->Select();
-		shared_ptr<ContextFactory> ctxFac = fac->getContextFactory();
-		shared_ptr<Context> mainFaceReact = ctxFac->getInstance_shared(e_MainInterfaceReaction);
-		mainFaceReact->reactToSelection(key);
+		oper = operFac->getInstance_shared(e_GoBack);
+		oper->doOperation();
 		break;
-	}
 	default:
 		break;
 	}
@@ -1255,18 +1349,9 @@ void FindContactsInterfaceReaction::reactToSelection(int key)
 	{
 		// 返回主页面
 	case 1:
-	{
-		shared_ptr<InterfaceFactory> faceFac = fac->getInterfaceFactory();
-		shared_ptr<Interface> mainFace = faceFac->getInstance_shared(e_MainInterface);
-		mainFace->show();
-		shared_ptr<GetSelectionFactory> getSelecFac = fac->getSelectionFactory();
-		shared_ptr<GetSelection> mainFaceSelec = getSelecFac->getInstance_shared(e_GetMainInterfaceSelection);
-		int key = mainFaceSelec->Select();
-		shared_ptr<ContextFactory> ctxFac = fac->getContextFactory();
-		shared_ptr<Context> mainFaceReact = ctxFac->getInstance_shared(e_MainInterfaceReaction);
-		mainFaceReact->reactToSelection(key);
+		oper = operFac->getInstance_shared(e_GoBack);
+		oper->doOperation();
 		break;
-	}
 	default:
 		break;
 	}
@@ -1279,36 +1364,39 @@ void ManageContactsInterfaceReaction::reactToSelection(int key)
 	{
 	// 添加联系人
 	case 1:
-	{
-		shared_ptr<OperationFactory> operFac = fac->getOperationFactory();
-		shared_ptr<Operation> addContacts = operFac->getInstance_shared(e_AddContacts);
-		addContacts->doOperation();
+		oper = operFac->getInstance_shared(e_AddContacts);
+		oper->doOperation();
 		break;
-	}
 	// 删除联系人
 	case 2:
-	{
-		shared_ptr<OperationFactory> operFac = fac->getOperationFactory();
-		shared_ptr<Operation> removeContacts = operFac->getInstance_shared(e_RemoveContacts);
-		removeContacts->doOperation();
+		oper = operFac->getInstance_shared(e_RemoveContacts);
+		oper->doOperation();
 		break;
-	}
 	// 移动联系人
 	case 3:
-	{
-		shared_ptr<OperationFactory> operFac = fac->getOperationFactory();
-		shared_ptr<Operation> moveContacts = operFac->getInstance_shared(e_MoveContacts);
-		moveContacts->doOperation();
+		oper = operFac->getInstance_shared(e_MoveContacts);
+		oper->doOperation();
 		break;
-	}
 	// 编辑信息
 	case 4:
-	{
-		shared_ptr<OperationFactory> operFac = fac->getOperationFactory();
-		shared_ptr<Operation> editContactsInfo = operFac->getInstance_shared(e_EditContactsInfo);
-		editContactsInfo->doOperation();
+		oper = operFac->getInstance_shared(e_EditContactsInfo);
+		oper->doOperation();
 		break;
-	}
+	// 添加分组
+	case 5:
+		oper = operFac->getInstance_shared(e_AddGroup);
+		oper->doOperation();
+		break;
+	// 删除分组
+	case 6:
+		oper = operFac->getInstance_shared(e_RemoveGroup);
+		oper->doOperation();
+		break;
+	// 返回
+	case 7:
+		oper = operFac->getInstance_shared(e_GoBack);
+		oper->doOperation();
+		break;
 	default:
 		break;
 	}

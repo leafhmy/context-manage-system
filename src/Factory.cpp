@@ -32,6 +32,9 @@ shared_ptr<Interface> InterfaceFactory::getInstance_shared(e_Interface e_face)
 	case e_ManageContactsInterface:
 		face = shared_ptr<ManageContactsInterface>(new ManageContactsInterface());
 		break;
+	case e_ExitSystemInterface:
+		face = shared_ptr<ExitSystemInterface>(new ExitSystemInterface());
+		break;
 	default:
 		break;
 	}
@@ -98,6 +101,18 @@ shared_ptr<Operation> OperationFactory::getInstance_shared(e_Operation e_oper)
 		break;
 	case e_EditContactsInfo:
 		oper = shared_ptr<EditContactsInfo>(new EditContactsInfo());
+		break;
+	case e_AddGroup:
+		oper = shared_ptr<AddGroup>(new AddGroup());
+		break;
+	case e_RemoveGroup:
+		oper = shared_ptr<RemoveGroup>(new RemoveGroup());
+		break;
+	case e_GoBack:
+		oper = shared_ptr<GoBack>(new GoBack());
+		break;
+	case e_ExitSystem:
+		oper = shared_ptr<ExitSystem>(new ExitSystem());
 		break;
 	default:
 		break;

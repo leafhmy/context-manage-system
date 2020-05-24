@@ -85,3 +85,14 @@ void ManageContactsInterface::showSelection()
 	windowsHelper->print(2, 18, "·µ»Ø");
 }
 
+//////////////////////////////////////////////
+
+void ExitSystemInterface::showTitle()
+{
+	windowsHelper->print(17, 5, "ÄúÒÑÍË³ö");
+}
+
+void ExitSystemInterface::showSelection()
+{
+
+}
