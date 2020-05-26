@@ -9,50 +9,15 @@ using namespace std;
 #include "DataHelper.h"
 
 class WindowsHelper;
-
 class Interface;
-class MainInterface;
-class MyContactsInterface;
-class LookGroupInterface;
-class FindContactsInterface;
-class ManageContactsInterface;
-class ExitSystemInterface;
-
 class Operation;
-class MyContacts;
-class FindContacts;
-class ManageContacts;
-class EditContactsInfo;
-class ExitSystem;
-
 class Context;
-class MainInterfaceReaction;
-class MyContactsInterfaceReaction;
-
 class DataHelper;
 class DataWriter;
 class DataReader;
-
 class GetSelection;
-class GetMyContactsInterfaceSelection;
-class GetMainInterfaceSelection;
-class GetFindContactsInterfaceSelection;
-class GetManageContactsInterfaceSelection;
-
 class Operation;
-class MyContacts;
-class AddContacts;
-class RemoveContacts;
-class MoveContacts;
-class AddGroup;
-class RemoveGroup;
-class GoBack;
-
 class Context;
-class MainInterfaceReaction;
-class MyContactsInterfaceReaction;
-class FindContactsInterfaceReaction;
-class ManageContactsInterfaceReaction;
 
 enum e_Interface
 {

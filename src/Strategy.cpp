@@ -24,78 +24,56 @@ int GetMainInterfaceSelection::Select()
 	{
 		switch (ch)  // 检测输入键
 		{
-			// UP上方向键
+		// UP上方向键
 		case 72:
 			if (key > 1)//当此时选中项为第一项时，UP上方向键无效
 			{
 				switch (key)
 				{
-				case(2):
-				{
+				case 2:
 					windowsHelper->selected(20, 12, "查找联系人");  // 将已选中项取消我背景色
 					windowsHelper->toSelect(20, 10, "我的联系人");  // 给待选中项设置背景色
-
 					--key;
 					break;
-				}
-				case(3):
-				{
+				case 3:
 					windowsHelper->selected(20, 14, "管理我的联系人");
 					windowsHelper->toSelect(20, 12, "查找联系人");
-
 					--key;
 					break;
-				}
-				case(4):
-				{
+				case 4:
 					windowsHelper->selected(20, 16, "退出系统");
 					windowsHelper->toSelect(20, 14, "管理我的联系人");
-
 					--key;
 					break;
-				}
 				}
 			}
 			break;
-			// DOWN下方向键
+		// DOWN下方向键
 		case 80:
 			if (key < 4)
 			{
 				switch (key)
 				{
-				case(1):
-				{
+				case 1:
 					windowsHelper->selected(20, 10, "我的联系人");
 					windowsHelper->toSelect(20, 12, "查找联系人");
-
 					++key;
 					break;
-				}
-				case(2):
-				{
+				case 2:
 					windowsHelper->selected(20, 12, "查找联系人");
 					windowsHelper->toSelect(20, 14, "管理我的联系人");
-
 					++key;
 					break;
-				}
-
-				case(3):
-				{
+				case 3:
 					windowsHelper->selected(20, 14, "管理我的联系人");
 					windowsHelper->toSelect(20, 16, "退出系统");
-
 					++key;
 					break;
-				}
 				default:
-				{
 					break;
-				}
 				}
 			}
 			break;
-
 		case 13://Enter回车键
 			flag = true;
 			break;
@@ -139,126 +117,86 @@ int GetManageContactsInterfaceSelection::Select()
 	{
 		switch (ch)  // 检测输入键
 		{
-			// UP上方向键
+		// UP上方向键
 		case 72:
 			if (key > 1)//当此时选中项为第一项时，UP上方向键无效
 			{
 				switch (key)
 				{
-				case(2):
-				{
+				case 2:
 					windowsHelper->selected(2, 8, "删除联系人");  // 将已选中项取消我背景色
 					windowsHelper->toSelect(2, 6, "添加联系人");  // 给待选中项设置背景色
-
 					--key;
 					break;
-				}
-				case(3):
-				{
+				case 3:
 					windowsHelper->selected(2, 10, "移动联系人");
 					windowsHelper->toSelect(2, 8, "删除联系人");
-
 					--key;
 					break;
-				}
-				case(4):
-				{
+				case 4:
 					windowsHelper->selected(2, 12, "编辑信息");
 					windowsHelper->toSelect(2, 10, "移动联系人");
-
 					--key;
 					break;
-				}
-				case(5):
-				{
+				case 5:
 					windowsHelper->selected(2, 14, "添加分组");
 					windowsHelper->toSelect(2, 12, "编辑信息");
-
 					--key;
 					break;
-				}
-				case(6):
-				{
+				case 6:
 					windowsHelper->selected(2, 16, "删除分组");
 					windowsHelper->toSelect(2, 14, "添加分组");
-
 					--key;
 					break;
-				}
-				case(7):
-				{
+				case 7:
 					windowsHelper->selected(2, 18, "返回");
 					windowsHelper->toSelect(2, 16, "删除分组");
-
 					--key;
 					break;
-				}
 				}
 			}
 			break;
-			// DOWN下方向键
+		// DOWN下方向键
 		case 80:
 			if (key < 7)
 			{
 				switch (key)
 				{
-				case(1):
-				{
+				case 1:
 					windowsHelper->selected(2, 6, "添加联系人");
 					windowsHelper->toSelect(2, 8, "删除联系人");
-
 					++key;
 					break;
-				}
-				case(2):
-				{
+				case 2:
 					windowsHelper->selected(2, 8, "删除联系人");
 					windowsHelper->toSelect(2, 10, "移动联系人");
-
 					++key;
 					break;
-				}
-
-				case(3):
-				{
+				case 3:
 					windowsHelper->selected(2, 10, "移动联系人");
 					windowsHelper->toSelect(2, 12, "编辑信息");
-
 					++key;
 					break;
-				}
-				case(4):
-				{
+				case 4:
 					windowsHelper->selected(2, 12, "编辑信息");
 					windowsHelper->toSelect(2, 14, "添加分组");
-
 					++key;
 					break;
-				}
-				case(5):
-				{
+				case 5:
 					windowsHelper->selected(2, 14, "添加分组");
 					windowsHelper->toSelect(2, 16, "删除分组");
-
 					++key;
 					break;
-				}
-				case(6):
-				{
+				case 6:
 					windowsHelper->selected(2, 16, "删除分组");
 					windowsHelper->toSelect(2, 18, "返回");
-
 					++key;
 					break;
-				}
 				default:
-				{
 					break;
-				}
 				}
 			}
 			break;
-
 		case 13://Enter回车键
 			flag = true;
 			break;
@@ -292,7 +230,6 @@ int GetFindContactsInterfaceSelection::Select()
 	return key;
 }
 
-
 //////////////////////////////////////////////
 
 Operation::Operation()
@@ -323,7 +260,7 @@ void Operation::printAllContacts()
 	// windowsHelper->print(2, 14, "删除分组");
 
 	vector<string> attrubute({ "分组","编号", "姓名","性别", "地址","手机号","家庭电话","工作电话" ,"邮箱" });
-	for (int i = 0, x = 8, y = 6; i < attrubute.size(); x += 8, i++)
+	for (unsigned i = 0, x = 8, y = 6; i < attrubute.size(); x += 8, i++)
 	{
 		windowsHelper->print(x, y, attrubute[i]);
 	}
@@ -344,7 +281,6 @@ void Operation::printAllContacts()
 	}
 }
 
-
 void Operation::upDateMngCtxInterface()
 {
 	system("cls");
@@ -362,7 +298,6 @@ void Operation::upDateMngCtxInterface()
 	windowsHelper->setColor(3);
 	mngReact->reactToSelection(key);
 }
-
 
 void MyContacts::doOperation()
 {
@@ -421,7 +356,7 @@ void MyContacts::doOperation()
 		windowsHelper->print(xPos, yPos, contactInfo["home_phone"]);
 		xPos += 8;
 		windowsHelper->print(xPos, yPos, contactInfo["work_phone"]);
-		xPos = 6;
+		xPos = 8;
 		yPos += 2;
 	}
 
@@ -437,7 +372,6 @@ void MyContacts::doOperation()
 	system("cls");
 	myCtxFaceReact->reactToSelection(key);
 }
-
 
 void FindContacts::doOperation()
 {
@@ -487,7 +421,7 @@ void FindContacts::doOperation()
 	windowsHelper->setCursorPosition(2, 2);
 	cout << "共找到 " << foundContacts.size() << " 条记录";
 	vector<string> attrubute({ "分组","编号", "姓名","性别", "地址","手机号","家庭电话","工作电话" ,"邮箱" });
-	for (int i = 0, x = 2, y = 6; i < attrubute.size(); x += 8, i++)
+	for (unsigned i = 0, x = 2, y = 6; i < attrubute.size(); x += 8, i++)
 	{
 		windowsHelper->print(x, y, attrubute[i]);
 	}
@@ -522,58 +456,13 @@ void FindContacts::doOperation()
 
 }
 
-
 void ManageContacts::doOperation()
 {
 	windowsHelper->setColor(3);
 	system("cls");
 	windowsHelper->setWindowsAttribute(85, 30, "通信录管理系统");
-	shared_ptr<Interface> mngCtxInterface = faceFac->getInstance_shared(e_ManageContactsInterface);
-	mngCtxInterface->show();
-
-	shared_ptr<DataReader> reader = fac->getDataReader_shared();
-	// 获取所有联系人
-	vector<map<string, string>> allContacts = reader->getAllContacts();
-
-	// windowsHelper->print(35, 2, "所有联系人");
-	// windowsHelper->print(2, 6, "添加联系人");
-	// windowsHelper->print(2, 8, "移动联系人");
-	// windowsHelper->print(2, 10, "编辑信息");
-	// windowsHelper->print(2, 12, "添加分组");
-	// windowsHelper->print(2, 14, "删除分组");
-
-	vector<string> attrubute({ "分组","编号", "姓名","性别", "地址","手机号","家庭电话","工作电话" ,"邮箱" });
-	for (int i = 0, x = 8, y = 6; i < attrubute.size(); x += 8, i++)
-	{
-		windowsHelper->print(x, y, attrubute[i]);
-	}
-
-	int xPos = 8, yPos = 8;
-	for (auto contact : allContacts)
-	{
-		windowsHelper->print(xPos, yPos, contact["group"]); xPos += 8;
-		windowsHelper->print(xPos, yPos, contact["id"]); xPos += 8;
-		windowsHelper->print(xPos, yPos, contact["name"]); xPos += 8;
-		windowsHelper->print(xPos, yPos, contact["sex"]); xPos += 8;
-		windowsHelper->print(xPos, yPos, contact["address"]); xPos += 8;
-		windowsHelper->print(xPos, yPos, contact["mobile_phone"]); xPos += 8;
-		windowsHelper->print(xPos, yPos, contact["home_phone"]); xPos += 8;
-		windowsHelper->print(xPos, yPos, contact["work_phone"]); xPos += 8;
-		windowsHelper->print(xPos, yPos, contact["mail"]); xPos = 8;
-		yPos += 2;
-	}
-
-	shared_ptr<GetSelectionFactory> getMngCtxFaceFac = fac->getSelectionFactory();
-	shared_ptr<GetSelection>getMngCtxFaceSelect = getMngCtxFaceFac->getInstance_shared(e_GetManageContactsInterfaceSelection);
-	int key = getMngCtxFaceSelect->Select();
-	shared_ptr<ContextFactory> ctxFac = fac->getContextFactory();
-	shared_ptr<Context> mngContactsReac = ctxFac->getInstance_shared(e_ManageContactsInterfaceReaction);
-
-	windowsHelper->setColor(3);
-	mngContactsReac->reactToSelection(key);
-
+	upDateMngCtxInterface();
 }
-
 
 void AddContacts::doOperation()
 {
@@ -752,7 +641,7 @@ void AddContacts::doOperation()
 		windowsHelper->clearLine(2, 4, 85, "请输入邮箱：");
 		bool ok = true;
 		getline(cin, mail); cin.clear();
-		regex pat("^([\\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\.)+[\\w](?:[\\w-]*[\\w])?)$");
+		regex pat("^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$");
 		smatch s;
 		bool found = regex_search(mail, s, pat);
 		if (!found)
@@ -781,7 +670,6 @@ void AddContacts::doOperation()
 
 	upDateMngCtxInterface();
 }
-
 
 void RemoveContacts::doOperation()
 {
@@ -823,7 +711,6 @@ void RemoveContacts::doOperation()
 	upDateMngCtxInterface();
 
 }
-
 
 void MoveContacts::doOperation()
 {
@@ -898,7 +785,6 @@ void MoveContacts::doOperation()
 
 	upDateMngCtxInterface();
 }
-
 
 void EditContactsInfo::doOperation()
 {
@@ -1171,7 +1057,7 @@ void EditContactsInfo::doOperation()
 				windowsHelper->clearLine(2, 4, 85, "请输入邮箱：");
 				bool ok = true;
 				getline(cin, changeInfo); cin.clear();
-				regex pat("^([\\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\.)+[\\w](?:[\\w-]*[\\w])?)$");
+				regex pat("^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$");
 				smatch s;
 				bool found = regex_search(changeInfo, s, pat);
 				if (!found)
@@ -1196,7 +1082,6 @@ void EditContactsInfo::doOperation()
 	upDateMngCtxInterface();
 
 }
-
 
 void AddGroup::doOperation()
 {
@@ -1223,9 +1108,10 @@ void AddGroup::doOperation()
 
 	shared_ptr<DataWriter> writer = fac->getDataWriter_shared();
 	writer->addGroup(group);
+	windowsHelper->clearLine(2, 4, 85, "添加成功，快添加进好友吧！");
+	system("pause");
 	upDateMngCtxInterface();
 }
-
 
 void RemoveGroup::doOperation()
 {
@@ -1236,8 +1122,14 @@ void RemoveGroup::doOperation()
 	string group;
 	while (true)
 	{
-		windowsHelper->clearLine(2, 4, 85, "请输入要删除组名：");
+		windowsHelper->clearLine(2, 4, 85, "（此操作会删除该组下的所有联系人）请输入要删除组名：");
 		getline(cin, group); cin.clear();
+		if (group == "默认分组")
+		{
+			windowsHelper->clearLine(2, 4, 85, "默认分组不可删除！");
+			system("pause");
+			continue;
+		}
 		bool ok = true;
 		vector<string>::iterator found = find(allGroups.begin(), allGroups.end(), group);
 		if (found == allGroups.end())
@@ -1252,9 +1144,10 @@ void RemoveGroup::doOperation()
 
 	shared_ptr<DataWriter> writer = fac->getDataWriter_shared();
 	writer->removeGroup(group);
+	windowsHelper->clearLine(2, 4, 85, "删除成功！");
+	system("pause");
 	upDateMngCtxInterface();
 }
-
 
 void GoBack::doOperation()
 {
@@ -1272,7 +1165,6 @@ void GoBack::doOperation()
 	mainFaceReact->reactToSelection(key);
 }
 
-
 void ExitSystem::doOperation()
 {
 	windowsHelper->setColor(3);
@@ -1283,11 +1175,7 @@ void ExitSystem::doOperation()
 	system("pause");
 }
 
-
-
 ////////////////////////////////////////////////////////////
-
-
 
 Context::Context()
 {
@@ -1356,7 +1244,6 @@ void FindContactsInterfaceReaction::reactToSelection(int key)
 		break;
 	}
 }
-
 
 void ManageContactsInterfaceReaction::reactToSelection(int key)
 {

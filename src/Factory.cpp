@@ -1,17 +1,12 @@
 #include "Factory.h"
 
-
 shared_ptr<WindowsHelper> WindowsFactory::getInstance()
 {
 	helper = shared_ptr<WindowsHelper>(new WindowsHelper());
 	return helper;
 }
 
-
-
 ///////////////////////////////////////////////////////////////////////////////////
-
-
 
 shared_ptr<Interface> InterfaceFactory::getInstance_shared(e_Interface e_face)
 {
@@ -42,11 +37,7 @@ shared_ptr<Interface> InterfaceFactory::getInstance_shared(e_Interface e_face)
 	return face;
 }
 
-
-
 /////////////////////////////////////////////////////////////////////////////////
-
-
 
 shared_ptr<GetSelection> GetSelectionFactory::getInstance_shared(e_GetSelection selec)
 {
@@ -71,11 +62,7 @@ shared_ptr<GetSelection> GetSelectionFactory::getInstance_shared(e_GetSelection 
 	return getSelection;
 }
 
-
-
 //////////////////////////////////////////////////////////////////////////////////
-
-
 
 shared_ptr<Operation> OperationFactory::getInstance_shared(e_Operation e_oper)
 {
@@ -121,11 +108,7 @@ shared_ptr<Operation> OperationFactory::getInstance_shared(e_Operation e_oper)
 	return oper;
 }
 
-
-
 ////////////////////////////////////////////////////////////////////
-
-
 
 shared_ptr<Context> ContextFactory::getInstance_shared(e_Context e_ctx)
 {
@@ -150,10 +133,7 @@ shared_ptr<Context> ContextFactory::getInstance_shared(e_Context e_ctx)
 	return ctx;
 }
 
-
-
 ///////////////////////////////////////////////////////////////////
-
 
 shared_ptr<InterfaceFactory> Factory::getInterfaceFactory()
 {

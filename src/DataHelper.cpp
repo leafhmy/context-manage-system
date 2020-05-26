@@ -212,7 +212,7 @@ vector<map<string, string>> DataReader::__getAllContacts()
 	readFileGroups >> groups;
 	readFileGroups.close();
 
-	for (int i = 0; i < groups["groups"].size(); i++)
+	for (unsigned i = 0; i < groups["groups"].size(); i++)
 	{
 		Json::Value contactsInGroup = contacts[(groups["groups"][i].asCString())];
 		for (auto contact : contactsInGroup)
