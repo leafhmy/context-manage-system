@@ -16,7 +16,6 @@ void DataWriter::__save(string group)
 	Json::Value groups;
 	readFileGroups >> groups;
 	
-	//groups["groups"].append(GBToUTF8(group.c_str()));
 	groups["groups"].append(GBToUTF8(group.c_str()));
 	readFileGroups.close();
 
@@ -27,10 +26,6 @@ void DataWriter::__save(string group)
 
 void DataWriter::__addContact(map<string, string> contactInfo, string group)
 {
-	//ifstream fileContacts(contactsFile, ios::binary | ios::in);
-	//Json::Value contacts;
-	//fileContacts >> contacts;
-
 	ifstream fileContacts(contactsFile, ios::binary | ios::in);
 	Json::Value contacts;
 	fileContacts >> contacts;
@@ -129,10 +124,7 @@ void DataWriter::__removeGroup(string groupName)
 	for (auto group : groups["groups"])
 	{
 		if (UTF8ToGB(group.asCString()).c_str() == groupName)
-		{
-			//newGroup.append(GBToUTF8(group.asCString()));
 			break;
-		}
 		index++;
 	}
 	Json::Value deleted;
@@ -193,10 +185,7 @@ void DataWriter::__renameGroup(string name, string newName)
 	readFileGroups.close();
 }
 
-
-
 //////////////////////////////////////////////////////////////////////
-
 
 vector<map<string, string>> DataReader::__getAllContacts()
 {

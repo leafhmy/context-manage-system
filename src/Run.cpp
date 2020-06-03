@@ -6,7 +6,7 @@ Run::Run()
 	fac = new Factory();
 	windowsFac =  fac->getWindowsFactory();
 	windowsHelper = windowsFac->getInstance();
-	windowsHelper->setWindowsAttribute(50, 30, "通信录管理系统");
+	windowsHelper->setWindowsAttribute(50, "通信录管理系统");
 	interfaceFactory = fac->getInterfaceFactory();
 
 }
@@ -15,8 +15,6 @@ Run::~Run()
 {
 	delete fac;
 }
-
-
 
 void Run::start()
 {

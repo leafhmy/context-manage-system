@@ -19,10 +19,10 @@ public:
 	virtual ~DataHelper() {}
 
 protected:
-	string contactsFile = "./data/contacts.json";
-	string groupsFile = "./data/groups.json";
+	const string contactsFile = "./data/contacts.json";
+	const string groupsFile = "./data/groups.json";
 
-	string UTF8ToGB(const char* str)
+	inline string UTF8ToGB(const char* str)
 	{
 		string result;
 		WCHAR* strSrc;
@@ -43,7 +43,7 @@ protected:
 		return result;
 	}
 
-	string GBToUTF8(const char* gb2312)
+	inline string GBToUTF8(const char* gb2312)
 	{
 		int len = MultiByteToWideChar(CP_ACP, 0, gb2312, -1, NULL, 0);
 		wchar_t* wstr = new wchar_t[len + 1];
